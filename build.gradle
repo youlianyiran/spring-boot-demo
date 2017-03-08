@@ -1,0 +1,56 @@
+
+
+group 'com.atian.demo'
+version '1.0-SNAPSHOT'
+
+buildscript {
+    ext {
+        springBootVersion = '1.5.1.RELEASE'
+    }
+    repositories {
+        maven { url "http://maven.aliyun.com/nexus/content/groups/public" }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+//buildDir{"${rootProject.projectDir}/build"}
+repositories {
+    maven { url "http://maven.aliyun.com/nexus/content/groups/public" }
+}
+
+jar {
+    baseName = 'spring-boot-demo'
+    version =  '0.1.0'
+}
+
+dependencies {
+    // tag::jetty[]
+    compile("org.springframework.boot:spring-boot-starter-web") {
+        exclude module: "spring-boot-starter-tomcat"
+    }
+    compile("org.springframework.boot:spring-boot-starter-jetty")
+    // end::jetty[]
+    // tag::actuator[]
+    compile("org.springframework.boot:spring-boot-starter-actuator")
+    compile("org.springframework.boot:spring-boot-starter-data-redis")
+    compile("org.springframework.boot:spring-boot-configuration-processor")
+
+    compile("org.springframework.boot:spring-boot-devtools")
+
+    compile("io.springfox:springfox-swagger2:2.6.1")
+    compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.6.1'
+    compile group: 'com.alibaba', name: 'fastjson', version: '1.2.24'
+
+    // end::actuator[]
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+}
+
