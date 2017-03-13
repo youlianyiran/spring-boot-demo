@@ -18,6 +18,7 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
+apply plugin: 'war'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -32,23 +33,39 @@ jar {
     version =  '0.1.0'
 }
 
+//configurations {
+//    compile.exclude module: 'spring-boot-starter-logging'//排除对默认logging的依赖
+//}
+
 dependencies {
     // tag::jetty[]
+
     compile("org.springframework.boot:spring-boot-starter-web") {
-        exclude module: "spring-boot-starter-tomcat"
+        //exclude module: "spring-boot-starter-tomcat"
     }
-    compile("org.springframework.boot:spring-boot-starter-jetty")
+    //compile("org.springframework.boot:spring-boot-starter-log4j")
+    //compile("org.springframework.boot:spring-boot-starter-jetty")
     // end::jetty[]
     // tag::actuator[]
     compile("org.springframework.boot:spring-boot-starter-actuator")
-    compile("org.springframework.boot:spring-boot-starter-data-redis")
+    //compile("org.springframework.boot:spring-boot-starter-redis")
+    compile("org.springframework.boot:spring-boot-starter-data-jpa")
     compile("org.springframework.boot:spring-boot-configuration-processor")
-
+    compile("org.springframework.boot:spring-boot-starter-aop")
     compile("org.springframework.boot:spring-boot-devtools")
 
     compile("io.springfox:springfox-swagger2:2.6.1")
     compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.6.1'
     compile group: 'com.alibaba', name: 'fastjson', version: '1.2.24'
+    compile group: 'mysql', name: 'mysql-connector-java', version: '6.0.5'
+    compile group: 'redis.clients', name: 'jedis', version: '2.9.0'
+    compile group: 'commons-collections', name: 'commons-collections', version: '3.2.2'
+
+
+//    compile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.24'
+//    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.24'
+//    compile group: 'org.slf4j', name: 'jcl-over-slf4j', version: '1.7.24'
+
 
     // end::actuator[]
     testCompile("org.springframework.boot:spring-boot-starter-test")
